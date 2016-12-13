@@ -1,0 +1,685 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="函数式编程 ( Functional Programming ) 是一种以函数为基础的编程方式和代码组织方式，能够带来更好的代码调试及项目维护的优势。本篇主要结合笔者在实际项目开发中的一些应用，简要谈谈函数式编程。
+函数
+在函数式编程中，任何代码可以都是函数，且要求具有返回值，如下示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈函数式编程【转】">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/functional-programming/index.html">
+<meta property="og:site_name" content="在路上">
+<meta property="og:description" content="函数式编程 ( Functional Programming ) 是一种以函数为基础的编程方式和代码组织方式，能够带来更好的代码调试及项目维护的优势。本篇主要结合笔者在实际项目开发中的一些应用，简要谈谈函数式编程。
+函数
+在函数式编程中，任何代码可以都是函数，且要求具有返回值，如下示例">
+<meta property="og:updated_time" content="2016-10-26T06:52:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈函数式编程【转】">
+<meta name="twitter:description" content="函数式编程 ( Functional Programming ) 是一种以函数为基础的编程方式和代码组织方式，能够带来更好的代码调试及项目维护的优势。本篇主要结合笔者在实际项目开发中的一些应用，简要谈谈函数式编程。
+函数
+在函数式编程中，任何代码可以都是函数，且要求具有返回值，如下示例">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '小叮当'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/functional-programming/"/>
+
+
+  <title> 谈谈函数式编程【转】 | 在路上 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">在路上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-blue">
+          <a href="/blue" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag"></i> <br />
+            
+            蓝色
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                谈谈函数式编程【转】
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-11T17:01:03+08:00" content="2016-10-11">
+              2016-10-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>函数式编程 ( Functional Programming ) 是一种以函数为基础的编程方式和代码组织方式，能够带来更好的代码调试及项目维护的优势。本篇主要结合笔者在实际项目开发中的一些应用，简要谈谈函数式编程。</p>
+<p>函数</p>
+<p>在函数式编程中，任何代码可以都是函数，且要求具有返回值，如下示例<br><a id="more"></a><br>// 非函数式</p>
+<p>var title = “Functional Programming”;<br>var saying = “This is not”;<br>console.log(saying + title); // =&gt; This is not Functional Programming<br>// 函数式</p>
+<p>var say = title =&gt; “This is “ + title;<br>var text = say(“Functional Programming”); // =&gt; This is Functional Programming<br>纯函数</p>
+<p>纯函数在这里指函数内外间是“无”关联的。主要有下面两点</p>
+<p>没有副作用（side effect）<br>不会涉及到外部变量的使用或修改</p>
+<p>引用透明<br>函数内只会依赖传入参数，在任何时候对函数输入相同的参数时，总能输出相同的结果</p>
+<p>// 非纯函数（函数内依赖函数外的变量值）</p>
+<p>var title = “Functional Programming”;<br>var say = ()=&gt; “This is not” + title;   // &lt;= 依赖了全局变量 title<br>// 纯函数</p>
+<p>var say = (title)=&gt;”This is “ + title; // &lt;= 依赖了以参数 title 传入<br>say(“Functional Programming”);<br>不可变数据（immutable）</p>
+<p>这里主要是指变量值的不可变。当需要基于原变量值改变时，可通过产生新的变量来确保原变量的不变性，如下</p>
+<p>// 可变数据</p>
+<p>var arr = [“Functional”, “Programming”];<br>arr[0] = “Other”; // &lt;= 修改了arr[0]的值<br>console.log(arr)  // =&gt; [“Other”, “Programming”] // 变量arr值已经被修改<br>// 不可变数据</p>
+<p>var arr = [“Functional”, “Programming”];<br>// 得到新的变量，不修改了原来的值<br>var newArr = arr.map(item =&gt; {<br>    if(item === “Functional”){<br>        return “Other”;<br>    } else {<br>        return item;<br>    }<br>})</p>
+<p>console.log(arr);  // =&gt; [“Functional”, “Programming”] 变量arr值不变<br>console.log(newArr); // =&gt; [“Other”, “Programming”]  产生新的变量newArr<br>之所以使用这种不变值，除了更好的函数式编程外，还能够维持线程安全可靠，落地在业务中，实际上也能让代码更加清晰。<br>设想，如果你定义了一个变量A，A在其他地方被其他人修改了，这样是不方便定位A的当前值的。关于定义多个变量引发的内存等问题，可以通过重用结构或部分引用的方式来减轻，可参考 immutable.js</p>
+<p>使用 map, reduce 等数据处理函数</p>
+<p>强大的 JavaScript 有着越来越多的高能处理数据函数，其中包含了 map、 reduce、 filter 等。</p>
+<p>map 能够对原数组中的值进行逐个处理并产生新的数组，一个简单例子</p>
+<p>// map</p>
+<p>var data = [1, 2, 3];<br>var squares = data.map( (item, index, array) =&gt;  item * item );<br>console.log(squares); // =&gt; [1, 4, 9]<br>console.log(data);// =&gt;  [1, 2, 3] data 还是那个 data<br>reduce 能够对原数组中的各个值进行结合处理，来产生新的值，如下面例子中，previous 代表上一个结果值，current 代表当前值，reduce 函数可以传入第二个参数作为 previous 初始值，不传时则 previous 初始值为数组中第一个值。</p>
+<p>// reduce</p>
+<p>var sum = [1, 2, 3].reduce( (previous, current, index, array) =&gt; previous + current );<br>console.log(sum); // =&gt; 6<br>函数柯里化 Currying</p>
+<p>柯里化 是将多参函数转换成一系列的单参函数。结合下面例子来说明下</p>
+<p>// 一个多参函数</p>
+<p>var add = (a, b) =&gt; a + b;<br>add(1, 2); // =&gt; 3<br>将上面的多参函数进行柯里化，如下</p>
+<p>// 柯里化函数</p>
+<p>var add = a =&gt; b =&gt; a + b;<br>上面柯里化后的函数调用方式也有所转变，第一次传入一个参数返回了一个函数，再传入参数则完成整体的调用，这也是利用的闭包的特性</p>
+<p>var add1 = add(1);<br>add1(2);  // =&gt; 3<br>柯里化后的函数，也可以应用在生产 “ 函数 ” 上，如下示例</p>
+<p>var say = title =&gt; type =&gt; title + “ is “ + type;</p>
+<p>var sayFP = say(“Functional Programming”);<br>var sayOther = say(“Other Programming”);</p>
+<p>sayFP(“good”); // =&gt; Functional Programming is good<br>sayOther(“good”); // =&gt; Other Programming is good<br>组合函数 compose</p>
+<p>顾名思义，组合函数是将多个函数进行组合成一个函数。举个例子</p>
+<p>var compose = (fn1, fn2) =&gt; (arg) =&gt; fn1(fn2(arg));</p>
+<p>var a = arg =&gt; arg + ‘a’;<br>var b = arg =&gt; arg + ‘b’;</p>
+<p>var c = compose(a, b); // 将a,b函数进行组合<br>c(‘c’);  // =&gt; cba<br>上面示例中，当调用组合函数 c 时，传入的参数会经过 b 函数，接着将 b 函数的返回值作为 a 函数的参数值，从而输出最终结果。<br>组合函数 c 就像管道一样，将水流( 返回值 )流经各个函数中进行处理。</p>
+<p>当想要组合很多函数成一条很长很长的“管道”时，那么显然上面的 compose 函数已经不够用了。下面看看 redux 是怎么做这个 compose 工具函数的。</p>
+<p>// 源自: redux/src/compose.js</p>
+<p>export default function compose(…funcs) {<br>  if (funcs.length === 0) {<br>    return arg =&gt; arg<br>  } else {<br>    const last = funcs[funcs.length - 1]<br>    const rest = funcs.slice(0, -1)<br>    return (…args) =&gt; rest.reduceRight((composed, f) =&gt; f(composed), last(…args))<br>  }<br>}<br>代码很简洁，主要利用了递归方式和数组的 reduceRight 方法来处理，reduceRight 跟上边提到的 reduce 方法功能是一样的，不同的是 reduceRight 是从数组的末尾向前逐个处理。就这样，想拼多长的就多长。</p>
+<p>以上，便是笔者在项目实践中应用较多的函数式编程内容，如有不妥，请斧正。</p>
+<p>附: 一些可供学习函数式编程的内容</p>
+<p>Immutable.js (<a href="https://facebook.github.io/immutable-js/" target="_blank" rel="external">https://facebook.github.io/immutable-js/</a>)<br>Underscore (<a href="http://underscorejs.org/" target="_blank" rel="external">http://underscorejs.org/</a>)<br>Lodash (<a href="https://lodash.com/" target="_blank" rel="external">https://lodash.com/</a>)<br>Ramda (<a href="http://ramdajs.com/" target="_blank" rel="external">http://ramdajs.com/</a>)<br>Mori (<a href="http://swannodette.github.io/mori/" target="_blank" rel="external">http://swannodette.github.io/mori/</a>)<br>Monads (<a href="http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html" target="_blank" rel="external">http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html</a>)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="谢严坤 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫描二维码关注微信公众平台,有惊喜哦！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag">#js</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/11/updata-node/" rel="next" title="node 和 npm 配置">
+                <i class="fa fa-chevron-left"></i> node 和 npm 配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/26/vue-router-login/" rel="prev" title="vue配合vue-router实现登录逻辑">
+                vue配合vue-router实现登录逻辑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xwzat.com1.z0.glb.clouddn.com/WechatIMG3.jpg"
+               alt="谢严坤" />
+          <p class="site-author-name" itemprop="name">谢严坤</p>
+          <p class="site-description motion-element" itemprop="description">现在的自己努力的让未来的自己不那么无能为力</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="github" target="_blank">github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="topic" target="_blank">topic</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="good" target="_blank">good</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢严坤</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

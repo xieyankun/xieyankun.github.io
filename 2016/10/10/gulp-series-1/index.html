@@ -1,0 +1,774 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="工具," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="简介：
+
+本篇文章为gulp系列第一篇，我们能学习一下内容
+
+了解 gulp.task()
+了解 gulp.src()
+了解 gulp.dest()
+了解 gulp.watch()
+
+
+学会使用gulp
+学会使用 gulp-less 编译 less 文件
+学会使用 gulp 监听事件，监听文件修改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gulp 系列一——快速入门">
+<meta property="og:url" content="http://yoursite.com/2016/10/10/gulp-series-1/index.html">
+<meta property="og:site_name" content="在路上">
+<meta property="og:description" content="简介：
+
+本篇文章为gulp系列第一篇，我们能学习一下内容
+
+了解 gulp.task()
+了解 gulp.src()
+了解 gulp.dest()
+了解 gulp.watch()
+
+
+学会使用gulp
+学会使用 gulp-less 编译 less 文件
+学会使用 gulp 监听事件，监听文件修改">
+<meta property="og:image" content="http://7xwzat.com1.z0.glb.clouddn.com/gulp/gulp.jpg">
+<meta property="og:updated_time" content="2016-10-11T10:01:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gulp 系列一——快速入门">
+<meta name="twitter:description" content="简介：
+
+本篇文章为gulp系列第一篇，我们能学习一下内容
+
+了解 gulp.task()
+了解 gulp.src()
+了解 gulp.dest()
+了解 gulp.watch()
+
+
+学会使用gulp
+学会使用 gulp-less 编译 less 文件
+学会使用 gulp 监听事件，监听文件修改">
+<meta name="twitter:image" content="http://7xwzat.com1.z0.glb.clouddn.com/gulp/gulp.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '小叮当'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/10/gulp-series-1/"/>
+
+
+  <title> gulp 系列一——快速入门 | 在路上 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">在路上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-blue">
+          <a href="/blue" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag"></i> <br />
+            
+            蓝色
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                gulp 系列一——快速入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T19:20:39+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>简介：</p>
+</blockquote>
+<p>本篇文章为gulp系列第一篇，我们能学习一下内容</p>
+<ol>
+<li>了解 gulp.task()</li>
+<li>了解 gulp.src()</li>
+<li>了解 gulp.dest()</li>
+<li>了解 gulp.watch()</li>
+</ol>
+<ol>
+<li>学会使用gulp</li>
+<li>学会使用 gulp-less 编译 less 文件</li>
+<li>学会使用 gulp 监听事件，监听文件修改</li>
+</ol>
+<a id="more"></a>
+<hr>
+<p>关于node和npm的安装我相信你已经安装好了，这里我就不过多的说了，相信也有好多教程专门介绍，我不认为我写的比他们好，还是专注每个细小的知识点。</p>
+<ol>
+<li><a href="">常用方法介绍</a></li>
+<li><a href="">例子-使用gulp-less编译less文件</a></li>
+</ol>
+<p>一. 常用方法介绍</p>
+<blockquote>
+<p>task 定义一个执行任务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.task(name[, deps], fn)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;somename&apos;, function() &#123;</div><div class="line">  // 做一些事</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>[ ] name 为执行任务的名字，执行gulp命令的时候用上、</p>
+</li>
+<li><p>[ ] [, deps] 可选数组，当前任务依赖任务，并在当前任务完成之前执行。</p>
+</li>
+<li><p>[ ] fn 该函数定义任务所要执行的一些操作</p>
+</li>
+</ul>
+<blockquote>
+<p>src 输出符合所提供的匹配模式或者匹配模式的数组或是直接写文件的路径。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.src(globs[, options])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;less&apos;, function()&#123;</div><div class="line">    return gulp.src(src/less/*.less)         //less源文件</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>[ ] globs 读取glob 或者包含 globs 的数组或文件路径。</li>
+<li>[ ] options 所要传递的参数，（提高篇会详细说明）</li>
+</ul>
+<blockquote>
+<p>dest 能被 pipe 进来，并且把所有数据重新输出写入到指定文件，也可以写入到多个文件中</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.dest(path[, options])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gulp.task(&apos;copyCss&apos;, function()&#123;</div><div class="line">    return gulp.src(src/css/*.css)         //css源文件</div><div class="line">    .pipe(gulp.dest(&apos;build/css/&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>[ ] pipe 管道的意思，传入一个function来加工上一个出入的内容，并返回流操作。</li>
+</ul>
+<blockquote>
+<p>gulp.watch 监听文件修改，并实时更新，但这里我们用 gulp-watch 插件来实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.watch(glob [, opts], tasks) 或 gulp.watch(glob [, opts, cb])</div></pre></td></tr></table></figure>
+<p>以上所有gulp的API我会在对gulp熟悉之后，在提提高篇中详细说明学习。</p>
+<hr>
+<p>二. 例子-使用gulp-less编译less文件</p>
+<p>这里我使用gulp-less 编译 less 文件，使用 gulp-watch 监听修改的文件。创建如下文件</p>
+<p><img src="http://7xwzat.com1.z0.glb.clouddn.com/gulp/gulp.jpg" alt="image"></p>
+<ol>
+<li>创建 package.json 文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+<ol>
+<li><p>首先安装以下插件 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev gulp</div><div class="line">npm install --save-dev gulp-less</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置 gulpfile.js 文件</p>
+</li>
+</ol>
+<p>gulpfile.js 是自动化配置的入口，运行 gulp 命令时会自动读取 gulpfile.js 文件里的内容进行自动化编译</p>
+<p>3.1 基本配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;);</div><div class="line"> </div><div class="line">gulp.task(&apos;testLess&apos;, function () &#123;</div><div class="line">    gulp.src(&apos;src/less/index.less&apos;)</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(&apos;src/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>3.2、编译多个less文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;);</div><div class="line"> </div><div class="line">gulp.task(&apos;testLess&apos;, function () &#123;</div><div class="line">    gulp.src([&apos;src/less/index.less&apos;,&apos;src/less/detail.less&apos;]) //多个文件以数组形式传入</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(&apos;src/css&apos;)); //将会在src/css下生成index.css以及detail.css </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>3.3、匹配符“!”，“<em>”，“*</em>”，“{}”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;);</div><div class="line"> </div><div class="line">gulp.task(&apos;testLess&apos;, function () &#123;</div><div class="line">    //编译src目录下的所有less文件</div><div class="line">    //除了reset.less和test.less（**匹配src/less的0个或多个子文件夹）</div><div class="line">    gulp.src([&apos;src/less/*.less&apos;, &apos;!src/less/**/&#123;reset,test&#125;.less&apos;]) </div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(&apos;src/css&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ol>
+<li>执行任务</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp testLess</div></pre></td></tr></table></figure>
+<ol>
+<li>监听事件（自动编译less）</li>
+</ol>
+<p>5.1、若每修改一次less，就要手动执行任务，显然是不合理的，所以当有less文件发生改变时使其自动编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&apos;gulp&apos;),</div><div class="line">    less = require(&apos;gulp-less&apos;);</div><div class="line"> </div><div class="line">gulp.task(&apos;testLess&apos;, function () &#123;</div><div class="line">    gulp.src([&apos;src/less/*.less&apos;,&apos;!src/less/extend/&#123;reset,test&#125;.less&apos;])</div><div class="line">        .pipe(less())</div><div class="line">        .pipe(gulp.dest(&apos;src/css&apos;));</div><div class="line">&#125;);</div><div class="line"> </div><div class="line">gulp.task(&apos;testWatch&apos;, function () &#123;</div><div class="line">    gulp.watch(&apos;src/**/*.less&apos;, [&apos;testLess&apos;]); //当所有less文件发生改变时，调用testLess任务</div></pre></td></tr></table></figure>
+<p>5.2、启动监听事件：命令提示符执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp testWatch</div></pre></td></tr></table></figure>
+<p>5.3、注意：该命令提示符执行需处于打开状态，关闭后监听事件结束(Ctrl + C 或右上)</p>
+<hr>
+<blockquote>
+<p>参考文章</p>
+</blockquote>
+<p><a href="http://www.gulpjs.com.cn/docs/api/" target="_blank" rel="external">http://www.gulpjs.com.cn/docs/api/</a></p>
+<p><a href="http://www.cnblogs.com/1wen/p/4533608.html" target="_blank" rel="external">http://www.cnblogs.com/1wen/p/4533608.html</a></p>
+<p><a href="http://www.ydcss.com/archives/34" target="_blank" rel="external">http://www.ydcss.com/archives/34</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="谢严坤 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫描二维码关注微信公众平台,有惊喜哦！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag">#工具</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/03/background-1/" rel="next" title="你所不知道的background的奇技淫巧——线性渐变">
+                <i class="fa fa-chevron-left"></i> 你所不知道的background的奇技淫巧——线性渐变
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/updata-node/" rel="prev" title="node 和 npm 配置">
+                node 和 npm 配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xwzat.com1.z0.glb.clouddn.com/WechatIMG3.jpg"
+               alt="谢严坤" />
+          <p class="site-author-name" itemprop="name">谢严坤</p>
+          <p class="site-description motion-element" itemprop="description">现在的自己努力的让未来的自己不那么无能为力</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="github" target="_blank">github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="topic" target="_blank">topic</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="good" target="_blank">good</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢严坤</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
