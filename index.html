@@ -279,6 +279,117 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/15/tanjie/" itemprop="url">
+                  每天一到算法题（1）——台阶问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-15T00:37:03+08:00" content="2016-12-15">
+              2016-12-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自从上周末写了两篇算法后，突然很喜欢那种思考的感觉了。我是不是科班出身没系统学习过算法，也许这些算法对你来说 so easy 但是每个对我来说都是新的。每道算法我都会写出自己的思考过程，这个思考的过程才是最为关键的，而且力求每道算法题都是自己独立完成而且是最优解。下面来看看今天的算法题目：</p>
+<blockquote>
+<p>有100格台阶，可以跨1步可以跨2步，那么一个有多少种走法？</p>
+</blockquote>
+<p>我希望当你看到这个题的时候不要往下看，自己独立的思考后看能不能想出来，我们需要培养这个思考的过程，这才是学习算法的关键。</p>
+<p>我不知道拿到这个题目时你是怎么想的，一开始我是完全没有思路的，也不知道从何下手，我做了三个思考：</p>
+<p>1、这样的题肯定有规律</p>
+<p>2、那么既然有规律他的规律是什么？</p>
+<p>3、怎么找出来呢？找到本质，从源头入手</p>
+<p>但是我还是不知道规律是什么，然后我在纸上画了一个台阶，<br><img src="http://7xwzat.com1.z0.glb.clouddn.com/222.jpg" alt="image"><br>如图可以看出我的思考过程，最开始的时候有两种情况一种是迈一阶，一种是迈两阶，以此类推每上一阶都有两种选择，但是总和等于阶数。然后找到它的规律是：在大于2层的时候，总数等于前两层数之和；<br>这个让我想到斐波那契数列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;    </div><div class="line">    if(n==1||n==2)&#123;        </div><div class="line">        return 1;</div><div class="line">    &#125;    </div><div class="line">    return fib(n-1)+fib(n-2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所以有以下解法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function totalNum(floor)&#123;</div><div class="line">    var total;    </div><div class="line">    if (floor &lt;= 0) break;    </div><div class="line">    if (floor == 1) &#123;</div><div class="line">        total = 1;        </div><div class="line">        return total;</div><div class="line">    &#125;    </div><div class="line">    if (floor == 2) &#123;</div><div class="line">        total = 2;        </div><div class="line">        return total;</div><div class="line">    &#125;    </div><div class="line">    return totalNum(floor-1) + totalNum(floor-2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你写到这里只能说你完成了任务，这是用递归实现的，这个时候我们来考虑一下这个O(2^n) 也就是2的100次方我滴个麻麻呀，这是要上天啊。这样显然只是实现了功能，但是性能上显然过不了关。那么我们继续往下走吧。</p>
+<p>既然是递归只有知道前两个才能知道下一个，我在想能不能把所有的值都存放在一个数组当中，然后想要那个我直接去取不就可以了，这样显然比递归来的方便，于是有了下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function totalNum2(floor)&#123;</div><div class="line">    var total;</div><div class="line">    var totalArr = [1, 2];    </div><div class="line">    if (floor &lt;= 0) return false;    </div><div class="line">    if (floor == 1) &#123;</div><div class="line">        total = totalArr[0];        </div><div class="line">        return total;</div><div class="line">    &#125;else if (floor == 2) &#123;</div><div class="line">        total = totalArr[1];        </div><div class="line">        return total;</div><div class="line">    &#125;else if (floor &gt; 2)&#123;        </div><div class="line">        for (var i = 2; i &lt; floor; i++) &#123;</div><div class="line">            totalArr[i] = totalArr[i - 1] + totalArr[i -2];</div><div class="line">        &#125;</div><div class="line">        total = totalArr[floor-1]        </div><div class="line">        return total;</div><div class="line">    &#125;   </div><div class="line">&#125;</div><div class="line">totalNum2(100)  // 573147844013817200000</div></pre></td></tr></table></figure>
+<p>这样一看时间复杂度变为O(n) 也就是计算100次就得出了结果 控件复杂度也是O(n)。这样看来就完美的解决了这道题。同样，也可以把这种方法去优化斐波那契数列。</p>
+<p>如果是面试这样的解法才是面试官想要的结果。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/11/uniquestrarr/" itemprop="url">
                   一道算法题的思考
                 </a>
@@ -1202,7 +1313,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
