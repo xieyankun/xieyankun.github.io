@@ -1,0 +1,663 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="前段时间一直写了几个算法题目，发现有个很牛逼的算法，动态规划，虽然有的解题思路和动态规划很像，但是当时不知道其中的原理和一些通用性，接下来的几天，通过一些栗子一点一点揭开动态规划那神秘的面霜，我也是现学现卖的，如果有那里写错的欢迎给我留言指正。
+动态规划有时被称为递归的相反的技术。递归是从顶部开始将问题分解，通过解决所有分解小问题的方式，来解决整个问题。而动态规划这是从底部开始解决问题，将所有小问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划问题（1）——斐波那契数列">
+<meta property="og:url" content="http://yoursite.com/2016/12/25/dynamic/index.html">
+<meta property="og:site_name" content="在路上">
+<meta property="og:description" content="前段时间一直写了几个算法题目，发现有个很牛逼的算法，动态规划，虽然有的解题思路和动态规划很像，但是当时不知道其中的原理和一些通用性，接下来的几天，通过一些栗子一点一点揭开动态规划那神秘的面霜，我也是现学现卖的，如果有那里写错的欢迎给我留言指正。
+动态规划有时被称为递归的相反的技术。递归是从顶部开始将问题分解，通过解决所有分解小问题的方式，来解决整个问题。而动态规划这是从底部开始解决问题，将所有小问">
+<meta property="og:updated_time" content="2016-12-25T15:42:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划问题（1）——斐波那契数列">
+<meta name="twitter:description" content="前段时间一直写了几个算法题目，发现有个很牛逼的算法，动态规划，虽然有的解题思路和动态规划很像，但是当时不知道其中的原理和一些通用性，接下来的几天，通过一些栗子一点一点揭开动态规划那神秘的面霜，我也是现学现卖的，如果有那里写错的欢迎给我留言指正。
+动态规划有时被称为递归的相反的技术。递归是从顶部开始将问题分解，通过解决所有分解小问题的方式，来解决整个问题。而动态规划这是从底部开始解决问题，将所有小问">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '小叮当'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/25/dynamic/"/>
+
+
+  <title> 动态规划问题（1）——斐波那契数列 | 在路上 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">在路上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-blue">
+          <a href="/blue" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag"></i> <br />
+            
+            蓝色
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                动态规划问题（1）——斐波那契数列
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-25T23:41:34+08:00" content="2016-12-25">
+              2016-12-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前段时间一直写了几个算法题目，发现有个很牛逼的算法，动态规划，虽然有的解题思路和动态规划很像，但是当时不知道其中的原理和一些通用性，接下来的几天，通过一些栗子一点一点揭开动态规划那神秘的面霜，我也是现学现卖的，如果有那里写错的欢迎给我留言指正。</p>
+<p>动态规划有时被称为递归的相反的技术。递归是从顶部开始将问题分解，通过解决所有分解小问题的方式，来解决整个问题。而动态规划这是从底部开始解决问题，将所有小问题解决掉，然后合并成整体的解决方案，从而解决掉整个大问题。递归方式虽然很简洁，但是效率不高，但是不能说递归是不好的，本质上是，命令式语言和面向对象的语言对递归的实现不够完善，因为它们没有将递归作为高级编程特性。</p>
+<a id="more"></a>
+<p>动态规划方案通常使用一个数组来建立一张表，<strong>用于存放被分解成众多子问题的解。</strong>当算法执行完毕，最终的解法将会在这个表中找到。</p>
+<p>今天我们先从我们最熟的斐波那契数列数列开始。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0, 1, 1, 2, 3, 5, 8, 13, 21, 24, 55, ...</div></pre></td></tr></table></figure>
+<p>从数列中可以发现从第三个数开始的值是前两个值的和。</p>
+<blockquote>
+<h5 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h5></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function fib(n)&#123;</div><div class="line">    if(n &lt; 2)&#123;</div><div class="line">        return n;</div><div class="line">    &#125;else&#123;</div><div class="line">        return fib(n - 1) + fib(n - 2);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">console.log(fib(10));   // 55</div></pre></td></tr></table></figure>
+<blockquote>
+<h5 id="动态规划解法"><a href="#动态规划解法" class="headerlink" title="动态规划解法"></a>动态规划解法</h5></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function fibDyn(n)&#123;</div><div class="line">    var temp = [];</div><div class="line">    for(var i = 0; i &lt;= n; i++)&#123;</div><div class="line">        temp[i] = 0</div><div class="line">    &#125;</div><div class="line">    if(n == 1 || n == 2)&#123;</div><div class="line">        return 1;</div><div class="line">    &#125;else&#123;</div><div class="line">        temp[1] = 1;</div><div class="line">        temp[2] = 2; </div><div class="line">        for(var i = 3; i &lt; n; i++)&#123;</div><div class="line">            temp[i] = temp[i - 1] + temp[i -2];</div><div class="line">        &#125;</div><div class="line">        return temp[i - 1];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">fibDyn(10)  // 55</div></pre></td></tr></table></figure>
+<p>从程序中我们可以看出，初始化了一个和传入等长的空数组，去存放每次运算厚的结果。</p>
+<blockquote>
+<h5 id="测试程序运行时间"><a href="#测试程序运行时间" class="headerlink" title="测试程序运行时间"></a>测试程序运行时间</h5></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var start = new Date().getTime();</div><div class="line">console.log(fib(10))</div><div class="line">var stop = new Date().getTime();</div><div class="line">console.log(&apos;递归消耗&apos; + (start - stop) + &apos;毫秒&apos;);</div><div class="line"></div><div class="line">start = new Date().getTime();</div><div class="line">console.log(fibDyn(10))</div><div class="line">stop = new Date().getTime();</div><div class="line">console.log(&apos;动态规划消耗&apos; + (start - stop) + &apos;毫秒&apos;);</div></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">55</div><div class="line">递归消耗-- 0 毫秒</div><div class="line">55</div><div class="line">动态规划消耗-- 0 毫秒</div></pre></td></tr></table></figure></p>
+<p>fib(20)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">6765</div><div class="line">递归消耗-- 1 毫秒</div><div class="line">6765</div><div class="line">动态规划消耗-- 0 毫秒</div></pre></td></tr></table></figure></p>
+<p>fib(30)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">832040</div><div class="line">递归消耗-- 17 毫秒</div><div class="line">832040</div><div class="line">动态规划消耗-- 0 毫秒</div></pre></td></tr></table></figure></p>
+<p>改变fib(n)中的 n 的值我们会发现，动态规划的解决方案姚比递归解决方案高效很多。</p>
+<blockquote>
+<h5 id="优化斐波那契数列的动态规划算法"><a href="#优化斐波那契数列的动态规划算法" class="headerlink" title="优化斐波那契数列的动态规划算法"></a>优化斐波那契数列的动态规划算法</h5></blockquote>
+<p>我们看到这个动态规划的算法是要了一个空数组，这是你可能已经想到使用迭代的方案计算，可以不使用数组，需要用到的素组的原因事因为动态规划算法通常需要吧中间的结果保存起来。一下是优化的迭代版。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function fibDyn(n)&#123;</div><div class="line">    var prev = 1;</div><div class="line">    var middle = 1;</div><div class="line">    var result = 1;</div><div class="line"></div><div class="line">    for(var i = 2; i &lt; n; i++)&#123;</div><div class="line">        result = prev + middle;</div><div class="line">        prev = middle;</div><div class="line">        middle = result;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line">fibDyn(10)  // 55</div></pre></td></tr></table></figure>
+<p>这时候我们可以看到少了创建数组这一步，效率没变，但是空间复杂度变小了。</p>
+<p>斐波那契数列在很多地方都会用上，我是从一个台阶问题发现的，同时知道了动态规划的解法。有兴趣的可以在公众号中回去“台阶问题”</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="谢严坤 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫描二维码关注微信公众平台,有惊喜哦！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/15/tanjie/" rel="next" title="每天一道算法题（1）——台阶问题">
+                <i class="fa fa-chevron-left"></i> 每天一道算法题（1）——台阶问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xwzat.com1.z0.glb.clouddn.com/WechatIMG3.jpg"
+               alt="谢严坤" />
+          <p class="site-author-name" itemprop="name">谢严坤</p>
+          <p class="site-description motion-element" itemprop="description">现在的自己努力的让未来的自己不那么无能为力</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="github" target="_blank">github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="topic" target="_blank">topic</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://example.com/" title="good" target="_blank">good</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#递归解法"><span class="nav-number">1.</span> <span class="nav-text">递归解法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态规划解法"><span class="nav-number">2.</span> <span class="nav-text">动态规划解法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试程序运行时间"><span class="nav-number">3.</span> <span class="nav-text">测试程序运行时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化斐波那契数列的动态规划算法"><span class="nav-number">4.</span> <span class="nav-text">优化斐波那契数列的动态规划算法</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢严坤</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
